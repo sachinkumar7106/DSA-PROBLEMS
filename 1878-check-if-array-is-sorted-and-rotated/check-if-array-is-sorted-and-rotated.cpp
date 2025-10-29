@@ -1,22 +1,19 @@
 class Solution {
 public:
     bool check(vector<int>& nums) {
+        int count=0;
         int n=nums.size();
-        if(n<=1){
-            return true;
-        }
-        int changecount=0;
-        for(int i=1;i<n;i++){
-            if(nums[i]<nums[i-1]){
-                changecount++;
-                if(changecount>1){
-                    return false;
-                }
+        for(int i=0;i<n-1;i++){
+            if(nums[i]>nums[i+1]){
+                count++;
             }
         }
         if(nums[0]<nums[n-1]){
-            changecount++;
+            count++;
         }
-        return changecount<=1;
+        if(count>1){
+            return false;
+        }
+        return true;
     }
 };
