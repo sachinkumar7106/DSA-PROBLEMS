@@ -1,16 +1,16 @@
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
-        vector<int>vecOfNum;
+        vector<int> vecNum;
         for(int i=0;i<=nums.size();i++){
-            vecOfNum.push_back(i);
+            vecNum.push_back(i);
         }
         sort(nums.begin(),nums.end());
-        for(int i=0;i<vecOfNum.size()-1;i++){
-            if(vecOfNum[i]!=nums[i]){
-                return vecOfNum[i];
+        for(int i=0;i<vecNum.size()-1;i++){
+            if(nums[i]!=vecNum[i]){
+                return vecNum[i];
             }
         }
-        return vecOfNum[vecOfNum.size()-1];
+        return vecNum[vecNum.size()-1];
     }
 };
