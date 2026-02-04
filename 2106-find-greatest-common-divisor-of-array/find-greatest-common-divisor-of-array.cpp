@@ -10,7 +10,7 @@ public:
         int GCD=1;
         for(int i=1;i<=smallest;i++){
             if(smallest % i==0 && largest % i==0){
-                GCD=max(GCD,i);
+                GCD=i;
             }
         }
         return GCD;
