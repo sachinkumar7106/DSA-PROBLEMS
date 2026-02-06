@@ -11,7 +11,7 @@ public:
             }else if(nums[mid]==2){
                 swap(nums[high],nums[mid]);
                 high--;
-            }else if(nums[mid]==1){
+            }else{
                 mid++;
             }
         }
