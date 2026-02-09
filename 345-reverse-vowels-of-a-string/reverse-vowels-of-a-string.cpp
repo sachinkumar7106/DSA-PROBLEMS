@@ -5,19 +5,17 @@ public:
         return ch=='a'||ch=='e'||ch=='i'||ch=='o'||ch=='u';
     }
     string reverseVowels(string s) {
-        string vowel="";
-        int n=s.length();
-        for(int i=0;i<n;i++){
-            if(isvowel(s[i])){
-                vowel+=s[i];
+        int i=0,j=s.length()-1;
+        while(i<j){
+            while(i<j&&!isvowel(s[i])){
+                i++;
             }
-        }
-        int k=vowel.length()-1;
-        for(int i=0;i<n;i++){
-            if(isvowel(s[i])){
-                s[i]=vowel[k];
-                k--;
+            while(i<j&& !isvowel(s[j])){
+                j--;
             }
+            swap(s[i],s[j]);
+            i++;
+            j--;
         }
         return s;
     }
