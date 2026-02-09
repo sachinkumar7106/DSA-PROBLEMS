@@ -17,11 +17,9 @@ class Solution {
   public:
     int sumBT(Node* root) {
         // code here
-        if(!root){
+        if(root==NULL){
             return 0;
         }
-        int left=sumBT(root->left);
-        int right=sumBT(root->right);
-        return root->data+left+right;
+        return root->data + sumBT(root->left) + sumBT(root->right);
     }
 };
