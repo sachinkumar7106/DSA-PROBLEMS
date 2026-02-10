@@ -1,8 +1,8 @@
 class Solution {
 public:
-    bool ispalindrome(string a,int l, int r){
+    bool ispalindrome(string &s,int l, int r){
         while(l<r){
-            if(a[l]!=a[r]){
+            if(s[l]!=s[r]){
                 return false;
             }
             l++;r--;
