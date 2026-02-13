@@ -10,14 +10,6 @@
  */
 class Solution {
 public:
-    ListNode* reverseLL(ListNode* curr,ListNode* prev){
-        if(curr==NULL){
-            return prev;
-        }
-        ListNode* Next=curr->next;
-        curr->next=prev;
-        return reverseLL(Next,curr);
-    }
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         int carry=0;
         ListNode* ans=new ListNode(0);
