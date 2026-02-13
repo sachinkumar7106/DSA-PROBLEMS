@@ -10,29 +10,45 @@
  */
 class Solution {
 public:
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* dummy = new ListNode(0);
-        ListNode* curr = dummy;
-        int carry = 0;
-
-        while (l1 || l2 || carry) {
-            int sum = carry;
-
-            if (l1) {
-                sum += l1->val;
-                l1 = l1->next;
-            }
-
-            if (l2) {
-                sum += l2->val;
-                l2 = l2->next;
-            }
-
-            curr->next = new ListNode(sum % 10);
-            carry = sum / 10;
-            curr = curr->next;
+    ListNode* reverseLL(ListNode* curr,ListNode* prev){
+        if(curr==NULL){
+            return prev;
         }
-
-        return dummy->next;
+        ListNode* Next=curr->next;
+        curr->next=prev;
+        return reverseLL(Next,curr);
+    }
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int carry=0;
+        ListNode* ans=new ListNode(0);
+        ListNode* curr=ans;
+        while(l1&&l2){
+            int temp=l1->val+l2->val+carry;
+            curr->next= new ListNode(temp%10);
+            carry=temp/10;
+            curr=curr->next;
+            l1=l1->next;
+            l2=l2->next;
+        }
+        while(l1){
+            int temp=l1->val+carry;
+            curr->next=new ListNode(temp%10);
+            carry=temp/10;
+            curr=curr->next;
+            l1=l1->next;
+        }
+        while(l2){
+            int temp=l2->val+carry;
+            curr->next=new ListNode(temp%10);
+            carry=temp/10;
+            curr=curr->next;
+            l2=l2->next;
+        }
+        while(carry){
+            curr->next=new ListNode(carry%10);
+            carry/=10;
+            curr=curr->next;
+        }
+        return ans->next;
     }
 };
