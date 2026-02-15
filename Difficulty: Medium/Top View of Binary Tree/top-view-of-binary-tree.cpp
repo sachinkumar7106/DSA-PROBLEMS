@@ -24,34 +24,24 @@ class Solution {
         find(root->left,pos-1,l,r);
         find(root->right,pos+1,l,r);
     }
+    void Tview(Node*root,int pos,vector<int>&ans,vector<int>&level,int lev){
+        if(!root){
+            return;
+        }
+        if(level[pos]>lev){
+            ans[pos]=root->data;
+            level[pos]=lev;
+        }
+        Tview(root->left,pos-1,ans,level,lev+1);
+        Tview(root->right,pos+1,ans,level,lev+1);
+    }
     vector<int> topView(Node *root) {
         // code here
         int l=0,r=0;
         find(root,0,l,r);
         vector<int>ans(r-l+1);
-        vector<int>filled(r-l+1,0);
-        queue<Node*>q;
-        queue<int>index;
-        q.push(root);
-        index.push(-l);
-        while(!q.empty()){
-            Node* temp=q.front();
-            q.pop();
-            int pos=index.front();
-            index.pop();
-            if(!filled[pos]){
-                filled[pos]=1;
-                ans[pos]=temp->data;
-            }
-            if(temp->left){
-                q.push(temp->left);
-                index.push(pos-1);
-            }
-            if(temp->right){
-                q.push(temp->right);
-                index.push(pos+1);
-            }
-        }
+        vector<int>level(r-l+1,INT_MAX);
+        Tview(root,-l,ans,level,0);
         return ans;
     }
 };
