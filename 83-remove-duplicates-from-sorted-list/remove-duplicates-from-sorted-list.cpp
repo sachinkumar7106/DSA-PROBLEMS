@@ -14,27 +14,18 @@ public:
         if(head==NULL||head->next==NULL){
             return head;
         }
-        vector<int>vec;
-        int arrp=0;
-        ListNode*p=head;
-        while(p!=NULL){
-            if(vec.size()==0){
-                vec.push_back(p->val);
+        ListNode*p1=head;
+        ListNode*p2=head->next;
+        while(p2!=NULL){
+            if(p1->val==p2->val){
+                p2=p2->next;
+                continue;
             }
-            if(vec[arrp]!=p->val){
-                vec.push_back(p->val);
-                arrp++;
-            }
-            p=p->next;
+            p1->next=p2;
+            p1=p2;
+            p2=p2->next;
         }
-        ListNode* newhead=new ListNode(vec[arrp]);
-        arrp--;
-        while(arrp>=0){
-            ListNode* temp=new ListNode(vec[arrp]);
-            temp->next=newhead;
-            newhead=temp;
-            arrp--;
-        }
-        return newhead;
+        p1->next=p2;
+        return head;
     }
 };
