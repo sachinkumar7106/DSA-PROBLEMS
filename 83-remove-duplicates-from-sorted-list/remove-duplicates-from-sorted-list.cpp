@@ -19,11 +19,11 @@ public:
         while(p2!=NULL){
             if(p1->val==p2->val){
                 p2=p2->next;
-                continue;
+            }else{
+                p1->next=p2;
+                p1=p2;
+                p2=p2->next;
             }
-            p1->next=p2;
-            p1=p2;
-            p2=p2->next;
         }
         p1->next=p2;
         return head;
