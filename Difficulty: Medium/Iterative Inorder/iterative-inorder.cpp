@@ -10,30 +10,26 @@ class Solution {
   public:
     vector<int> inOrder(Node* root) {
         // code here
-        stack<Node*>s;
-        stack<bool>visited;
-        s.push(root);
-        visited.push(0);
         vector<int>ans;
-        while(!s.empty()){
-            Node*temp=s.top();
-            s.pop();
-            bool flag=visited.top();
-            visited.pop();
-            if(!flag){
-                if(temp->right){
-                    s.push(temp->right);
-                    visited.push(0);
-                }
-                s.push(temp);
-                visited.push(1);
-                if(temp->left){
-                    s.push(temp->left);
-                    visited.push(0);
-                }
+        while(root){
+            if(!root->left){
+                ans.push_back(root->data);
+                root=root->right;
             }
             else{
-                ans.push_back(temp->data);
+                Node* curr=root->left;
+                while(curr->right&&curr->right!=root){
+                    curr=curr->right;
+                }
+                if(curr->right==NULL){
+                    curr->right=root;
+                    root=root->left;
+                }
+                else{
+                    curr->right=NULL;
+                    ans.push_back(root->data);
+                    root=root->right;
+                }
             }
         }
         return ans;
