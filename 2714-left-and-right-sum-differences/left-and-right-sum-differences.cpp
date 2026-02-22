@@ -11,7 +11,12 @@ public:
             rsum += nums[n-1-i];
         }
         for(int i=0;i<n;i++){
-            nums[i]=abs(leftsum[i]-rightsum[i]);
+            int dif=leftsum[i]-rightsum[i];
+            if(dif>0){
+                nums[i]=dif;
+            }else{
+                nums[i]= -dif;
+            }
         }
         return nums;
     }
