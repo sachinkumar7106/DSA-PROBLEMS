@@ -6,21 +6,29 @@ public:
         if(k==0){
             return res;
         }
-        for(int i=0;i<n;i++){
-            if(k>0){
-                int sum=0;
-                int j=i+1;
-                for(int l=0;l<k;l++){
-                    sum+=code[j%n];
-                    j++;
-                }
+        if(k>0){
+            int sum=0,j=0;
+            for(int i=0;i<k;i++){
+                j=i+1;
+                sum+=code[j%n];
+            }
+            res[0]=sum;
+            for(int i=1;i<n;i++){
+                sum-=code[i];
+                sum+=code[(j+i)%n];
                 res[i]=sum;
             }
-            if(k<0){
-                int sum=0;
-                for(int l=1;l<=-k;l++){
-                    sum+=code[(i+n-l)%n];
-                }
+        }
+        if(k<0){
+            int sum=0,j=0;
+            for(int i=1;i<=-k;i++){
+                j=n-i;
+                sum+=code[j%n];
+            }
+            res[0]=sum;
+            for(int i=1;i<n;i++){
+                sum-=code[(j+i-1)%n];
+                sum+=code[(i-1)%n];
                 res[i]=sum;
             }
         }
