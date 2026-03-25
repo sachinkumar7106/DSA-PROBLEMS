@@ -2,19 +2,29 @@
 
 class Solution {
   public:
-    void bst(int arr[],int&index,int lower ,int upper,int N){
-        if(index==N||arr[index]<lower||arr[index]>upper){
-            return;
-        }
-        int value=arr[index++];
-        bst(arr,index,lower,value,N);
-        bst(arr,index,value,upper,N);
-        return;
-    }
     int canRepresentBST(int arr[], int N) {
         // code here
-        int i=0;
-        bst(arr,i,INT_MIN,INT_MAX,N);
-        return i==N;
+        stack<int>lower;
+        stack<int>upper;
+        lower.push(INT_MIN);
+        upper.push(INT_MAX);
+        for (int i=0;i<N;i++){
+            if(arr[i]<lower.top()){
+                return 0;
+            }
+            while(arr[i]>upper.top()){
+                upper.pop();
+                lower.pop();
+            }
+            int left=lower.top();
+            int right=upper.top();
+            lower.pop();
+            upper.pop();
+            lower.push(arr[i]);
+            upper.push(right);
+            lower.push(left);
+            upper.push(arr[i]);
+        }
+        return 1;
     }
 };
