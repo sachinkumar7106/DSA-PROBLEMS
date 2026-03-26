@@ -1,20 +1,21 @@
 class Solution {
 public:
     vector<int> findErrorNums(vector<int>& nums) {
+        int i=0;
         int n=nums.size();
-        vector<int>freq(n+1,0);
-        for(int i=0;i<n;i++){
-            freq[nums[i]]++;
-        }
-        int dup=-1,mis=-1;
-        for(int i=1;i<=n;i++){
-            if(freq[i]==2){
-                dup=i;
-            }
-            if(freq[i]==0){
-                mis=i;
+        while(i<n){
+            int j=nums[i]-1;
+            if(nums[i]!=nums[j]){
+                swap(nums[i],nums[j]);
+            }else{
+                i++;
             }
         }
-        return {dup,mis};
+        for(int j=0;j<n;j++){
+            if(nums[j]-1!=j){
+                return{nums[j],j+1};
+            }
+        }
+        return{};
     }
 };
