@@ -1,23 +1,23 @@
 class Solution {
 public:
     string removeDuplicates(string s) {
-        int j=-1;
-        string str="";
-        int n=s.length();
-        for(int i =0;i<n;i++){
-            if(j==-1){
-                str+=s[i];
-                j++;
+        stack<char>st;
+        int i=0;
+        int n =s.length();
+        while(i<n){
+            if(!st.empty()&& st.top()==s[i]){
+                st.pop();
             }else{
-                if(str[j]==s[i]){
-                    str.erase(j,1);
-                    j--;
-                }else{
-                    str+=s[i];
-                    j++;
-                }
+                st.push(s[i]);
             }
+            i++;
         }
-        return str;
+        string res="";
+        while(!st.empty()){
+            res.insert(res.begin(),st.top());
+            st.pop();
+        }
+
+        return res;
     }
 };
