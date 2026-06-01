@@ -1,20 +1,21 @@
 class Solution {
 public:
-    vector<int> generaterow(int n){
-        vector<int>row;
-        int val=1;
-        row.push_back(val);
-
-        for(int k=1;k<n;k++){
-            val=val*(n-k)/k;
-            row.push_back(val);
+    int pasrowele(int r,int c){
+        int result=1;
+        for(int i=0;i<c;i++){
+            result*=(r-i);
+            result/=(i+1);
         }
-        return row;
+        return result;
     }
     vector<vector<int>> generate(int numRows) {
         vector<vector<int>>pascal;
-        for(int i=1;i<=numRows;i++){
-            pascal.push_back(generaterow(i));
+        for(int i=0;i<numRows;i++){
+            vector<int>row;
+            for(int j=0;j<i+1;j++){
+                row.push_back(pasrowele(i,j));
+            }
+            pascal.push_back(row);
         }
         return pascal;
     }
