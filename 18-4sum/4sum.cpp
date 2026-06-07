@@ -2,26 +2,39 @@ class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
         int n=nums.size();
-        set<vector<int>>st;
+        vector<vector<int>>res;
+        sort(nums.begin(),nums.end());
         for(int i=0;i<n;i++){
+            if(i>0&&nums[i]==nums[i-1]){
+                continue;
+            }
             for(int j=i+1;j<n;j++){
-                unordered_set<int>seen;
-                for(int k=j+1;k<n;k++){
-                    long long comple=(long long)target-nums[i]-nums[j]-nums[k];
-                    if (comple < INT_MIN || comple > INT_MAX) {
-                        seen.insert(nums[k]);
-                        continue;
-                    }
+                if(j>i+1&&nums[j]==nums[j-1]){
+                    continue;
+                }
 
-                    if(seen.count(comple)){
-                        vector<int>temp={nums[i],nums[j],nums[k],(int)comple};
-                        sort(temp.begin(),temp.end());
-                        st.insert(temp);
+                int left=j+1,right=n-1;
+                while(left<right){
+                    long long sum=(long long)nums[i]+nums[j]+nums[left]+nums[right];
+                    if(sum==target){
+                        res.push_back({nums[i],nums[j],nums[left],nums[right]});
+                        while(left<right&&nums[left]==nums[left+1]){
+                            left++;
+                        }
+                        while(left<right&&nums[right]==nums[right-1]){
+                            right--;
+                        }
+                        left++;
+                        right--;
                     }
-                    seen.insert(nums[k]);
+                    else if(sum>target){
+                        right--;
+                    }else{
+                        left++;
+                    }
                 }
             }
         }
-        return vector<vector<int>>(st.begin(),st.end());
+        return res;
     }
 };
