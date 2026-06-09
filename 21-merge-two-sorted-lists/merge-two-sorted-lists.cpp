@@ -11,23 +11,25 @@
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        vector<int>li;
-        while(list1){
-            li.push_back(list1->val);
-            list1=list1->next;
+        ListNode*dummy=new ListNode(0);
+        ListNode*curr=dummy;
+        while(list1&&list2){
+            if(list1->val<=list2->val){
+                curr->next=list1;
+                curr=curr->next;
+                list1=list1->next;
+            }
+            else{
+                curr->next=list2;
+                curr=curr->next;
+                list2=list2->next;
+            }
         }
-        while(list2){
-            li.push_back(list2->val);
-            list2=list2->next;
+        if(list1){
+            curr->next=list1;
         }
-        sort(li.begin(),li.end());
-        ListNode* dummy= new ListNode(0);
-        ListNode* curr=dummy;
-        int i=0,n=li.size();
-        while(i<n){
-            curr->next= new ListNode(li[i]);
-            i++;
-            curr=curr->next;
+        if(list2){
+            curr->next=list2;
         }
         return dummy->next;
     }
