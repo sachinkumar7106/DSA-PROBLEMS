@@ -9,13 +9,14 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
+        ListNode* curr=head;
         unordered_map<ListNode*,int>mp;
-        while(head){
-            mp[head]++;
-            if(mp[head]>1){
+        while(curr){
+            if(mp.find(curr)!=mp.end()){
                 return true;
             }
-            head=head->next;
+            mp[curr]++;
+            curr=curr->next;
         }
         return false;
     }
