@@ -3,24 +3,23 @@ public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
         int n=nums1.size();
         int m=nums2.size();
-        vector<int> res;
-        stack<int>mono;
-        map<int,int>mp;
-        for(int i=0;i<m;i++){
-            while(!mono.empty()&& mono.top()<nums2[i]){
-                mp[mono.top()]=nums2[i];
-                mono.pop();
+        vector<int> result(n,-1);
+        for(int i=0;i<n;i++){
+            int j;
+            int ans=-1;
+            for(j=0;j<m;j++){
+                if(nums1[i]==nums2[j]){
+                    break;
+                }
             }
-            mono.push(nums2[i]);
+            for(int k=j+1;k<m;k++){
+                if(nums2[k]>nums1[i]){
+                    ans=nums2[k];
+                    result[i]=ans;
+                    break;
+                }
+            }
         }
-        while(!mono.empty()){
-            mp[mono.top()]=-1;
-            mono.pop();
-        }
-        for(int i =0;i<n;i++){
-            res.push_back(mp[nums1[i]]);
-        }
-        return res;
-
+        return result;
     }
 };
