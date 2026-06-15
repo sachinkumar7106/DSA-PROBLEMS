@@ -3,11 +3,7 @@
  * @return {number}
  */
 var argumentsLength = function(...args) {
-    var count=0;
-    for(a of args){
-        count++;
-    }
-    return count;
+    return args.length;
 };
 
 /**
