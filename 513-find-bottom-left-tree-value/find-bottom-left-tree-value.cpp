@@ -11,19 +11,30 @@
  */
 class Solution {
 public:
-    void dfs(TreeNode* root,int &leftvalue,int &leftdepth,int depth){
-        if(!root){return;}
-        if(leftdepth<depth){
-            leftvalue=root->val;
-            leftdepth=depth;
-        }
-        dfs(root->left,leftvalue,leftdepth,depth+1);
-        dfs(root->right,leftvalue,leftdepth,depth+1);
-    }
     int findBottomLeftValue(TreeNode* root) {
-        int value=-1;
-        int leftdepth=-1;
-        dfs(root,value,leftdepth,0);
-        return value;
+        int leftvalue=-1;
+        queue<TreeNode*>q;
+        q.push(root);
+        while(!q.empty()){
+            bool levelfirst=false;
+            int l;
+            int n=q.size();
+            for(int i=0;i<n;i++){
+                TreeNode* curr=q.front();
+                q.pop();
+                if(!levelfirst){
+                    l=curr->val;
+                    levelfirst=true;
+                }
+                
+
+                if(curr->left)
+                q.push(curr->left);
+                if(curr->right)
+                q.push(curr->right);
+            }
+            leftvalue=l;
+        }
+        return leftvalue;
     }
 };
