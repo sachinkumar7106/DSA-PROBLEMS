@@ -11,16 +11,26 @@
  */
 class Solution {
 public:
-    bool dfs(TreeNode*root,int tar){
+    bool hasPathSum(TreeNode* root, int targetSum) {
         if(!root){
             return false;
         }
-        if(!root->left&&!root->right&&(tar==root->val)){
-            return true;
+        queue<pair<TreeNode*,int>>q;
+        q.push(make_pair(root,root->val));
+        while(!q.empty()){
+            TreeNode*curr=q.front().first;
+            int currsum=q.front().second;
+            q.pop();
+            if(!curr->left&&!curr->right&&currsum==targetSum){
+                return true;
+            }
+            if(curr->left){
+                q.push(make_pair(curr->left,currsum+curr->left->val));
+            }
+            if(curr->right){
+                q.push(make_pair(curr->right,currsum+curr->right->val));
+            }
         }
-        return dfs(root->left,tar-root->val)||dfs(root->right,tar-root->val);
-    }
-    bool hasPathSum(TreeNode* root, int targetSum) {
-        return dfs(root,targetSum);
+        return false;
     }
 };
