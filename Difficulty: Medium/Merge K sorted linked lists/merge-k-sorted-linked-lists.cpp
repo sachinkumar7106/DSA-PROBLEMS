@@ -14,34 +14,27 @@ class Node {
 
 class Solution {
   public:
-    Node*merge(Node*head1,Node*head2){
-        Node*head=new Node(0),*tail=head;
-        while(head1&& head2){
-            if(head1->data<=head2->data){
-                tail->next=head1;
-                head1=head1->next;
-                tail=tail->next;
-                tail->next=NULL;
-            }else{
-                tail->next=head2;
-                head2=head2->next;
-                tail=tail->next;
-                tail->next=NULL;
-            }
+    class compare{
+        public:
+        bool operator()(Node *a,Node*b){
+            return a->data>b->data;
         }
-        if(head1){
-            tail->next=head1;
-        }else{
-            tail->next=head2;
-        }
-        return head->next;
-    }
+    };
     Node* mergeKLists(vector<Node*>& arr) {
         // code here
-        Node*head=arr[0];
-        for(int i=1;i<arr.size();i++){
-            head=merge(head,arr[i]);
+        priority_queue<Node *,vector<Node*>,compare>q(arr.begin(),arr.end());
+        
+        Node*dummy=new Node(0);
+        Node*curr=dummy;
+        Node*temp;
+        while(!q.empty()){
+            temp=q.top();
+            q.pop();
+            curr->next=temp;
+            curr=curr->next;
+            if(temp->next)
+            q.push(temp->next);
         }
-        return head;
+        return dummy->next;
     }
 };
