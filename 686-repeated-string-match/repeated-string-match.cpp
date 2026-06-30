@@ -1,67 +1,44 @@
 class Solution {
+private:
+    int BASE = 1000000;
 public:
-
-    void getLPS(vector<int> &lps,string s) {
-        // code here
-        int pre=0,suf=1;
-        while(suf<s.size()){
-            //matched 
-            if(s[pre]==s[suf]){
-                lps[suf]=pre+1;
-                pre++,suf++;
-            }
-            //not matched
-            else{
-                if(pre==0){
-                    lps[suf]=0;
-                    suf++;
-                }else{
-                    pre=lps[pre-1];
-                }
-            }
+    int repeatedStringMatch(string A, string B) {
+        if(A == B) return 1;
+        int count = 1;
+        string source = A;
+        while(source.size() < B.size()){
+            count++;
+            source+=A;
         }
+        if(source == B) return count;
+        if(Rabin_Karp(source,B) != -1) return count;
+        if(Rabin_Karp(source+A,B) != -1) return count+1;
+        return -1;
     }
-    int kmp_match(string str1 ,string str2) {
-        vector<int> lps(str2.size(),0);
-        getLPS(lps,str2);
-        int first=0,second=0;
-        while(second<str2.size()&&first<str1.size()){
-            //match
-            if(str1[first]==str2[second]){
-                first++,second++;
+    int Rabin_Karp(string source, string target){
+        if(source == "" or target == "") return -1;
+        int m = target.size();
+        int power = 1;
+        for(int i = 0;i<m;i++){
+            power = (power*31)%BASE;
+        }
+        int targetCode = 0;
+        for(int i = 0;i<m;i++){
+            targetCode = (targetCode*31+target[i])%BASE;
+        }
+        int hashCode = 0;
+        for(int i = 0;i<source.size();i++){
+            hashCode = (hashCode*31 + source[i])%BASE;
+            if(i<m-1) continue;
+            if(i>=m){
+                hashCode = (hashCode-source[i-m]*power)%BASE;
             }
-            //not match
-            else{
-                if(second==0){
-                    first++;
-                }else{
-                    second=lps[second-1];
-                }
+            if(hashCode<0)
+                hashCode+=BASE;
+            if(hashCode == targetCode){
+                if(source.substr(i-m+1,m) == target)
+                    return i-m+1;
             }
-        }
-        if(second==str2.size()){
-            return 1;
-        }else{
-            return 0;
-        }
-    }
-    int repeatedStringMatch(string a, string b) {
-        if(a==b){
-            return 1;
-        }
-        int repeat=1;
-        string temp=a;
-
-        while(temp.size()<b.size()){
-            temp+=a;
-            repeat++;
-        }
-
-        if(kmp_match(temp,b)==1){
-            return repeat;
-        }
-        if(kmp_match(temp+a,b)==1){
-            return repeat+1;
         }
         return -1;
     }
