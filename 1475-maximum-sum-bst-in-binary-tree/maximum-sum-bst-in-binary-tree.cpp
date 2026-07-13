@@ -26,11 +26,11 @@ public:
 class Solution {
 public:
     box* find(TreeNode*root,int &maxsum){
-        //root doesn't exist
+
         if(!root){
             return new box();
         }
-        //root exist
+
         box* left=find(root->left,maxsum);
         box* right=find(root->right,maxsum);
         if(left->bst&&right->bst&&left->max<root->val&&right->min>root->val){
