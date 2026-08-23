@@ -1,21 +1,23 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        int row=matrix.size();
-        int col=matrix[0].size();
-        vector<bool>rzero(row,false);
-        vector<bool>czero(col,false);
-        for(int i=0;i<row;i++){
-            for(int j=0;j<col;j++){
+        int n=matrix.size(),m=matrix[0].size();
+        vector<bool>row(n,false);
+        vector<bool>col(m,false);
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
                 if(matrix[i][j]==0){
-                    rzero[i]=true;
-                    czero[j]=true;
+                    if(!row[i])
+                    row[i]=true;
+                    if(!col[j])
+                    col[j]=true;
                 }
             }
         }
-        for(int i=0;i<row;i++){
-            for(int j=0;j<col;j++){
-                if(rzero[i]||czero[j]){
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(row[i]||col[j]){
                     matrix[i][j]=0;
                 }
             }
