@@ -14,15 +14,15 @@ public:
         if(head==NULL||head->next==NULL){
             return head;
         }
-        ListNode*p1=head,*p2=head->next;
-        ListNode*curr1=p1,*curr2=p2;
+        ListNode* ptr1=head,*ptr2 =head->next;
+        ListNode* curr1=ptr1,*curr2=ptr2;
         while(curr2!=NULL&&curr2->next!=NULL){
             curr1->next=curr2->next;
             curr1=curr1->next;
             curr2->next=curr1->next;
             curr2=curr2->next;
         }
-        curr1->next=p2;
-        return head;
+        curr1->next=ptr2;
+        return ptr1;
     }
 };
